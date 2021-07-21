@@ -19,20 +19,22 @@ class BookJsonTests {
         Book book =     new Book("1234567892", "Polar Journey", "Iorek Polarson", Year.of(1993), 12.90, "Polar");
 
         assertThat(json.write(book)).extractingJsonPathStringValue("@.isbn")
-                .isEqualTo("1234567890");
+                .isEqualTo("1234567892");
         assertThat(json.write(book)).extractingJsonPathStringValue("@.title")
-                .isEqualTo("Title");
+                .isEqualTo("Polar Journey");
         assertThat(json.write(book)).extractingJsonPathStringValue("@.author")
-                .isEqualTo("Author");
+                .isEqualTo("Iorek Polarson");
         assertThat(json.write(book)).extractingJsonPathStringValue("@.publishingYear")
-                .isEqualTo("1973");
+                .isEqualTo("1993");
         assertThat(json.write(book)).extractingJsonPathNumberValue("@.price")
-                .isEqualTo(9.90);
+                .isEqualTo(12.90);
+        assertThat(json.write(book)).extractingJsonPathStringValue("@.publisher")
+                .isEqualTo("Polar");
     }
 
     @Test
     void testDeserialize() throws Exception {
-        String content = "{\"isbn\":\"1234567890\",\"title\":\"Title\", \"author\":\"Author\", \"publishingYear\":\"1973\", \"price\":9.90}";
+        String content = "{\"isbn\":\"1234567892\",\"title\":\"Polar Journey\", \"author\":\"Iorek Polarson\", \"publishingYear\":\"1993\", \"price\":12.90,\"publisher\":\"Polar\"}";
         assertThat(json.parse(content))
                 .usingRecursiveComparison().isEqualTo(
 
@@ -40,6 +42,6 @@ class BookJsonTests {
 
 
         );
-        assertThat(json.parseObject(content).getIsbn()).isEqualTo("1234567890");
+        assertThat(json.parseObject(content).getIsbn()).isEqualTo("1234567892");
     }
 }

@@ -28,7 +28,7 @@ class BookValidationTests {
 
     @Test
     void whenIsbnDefinedButIncorrectThenValidationFails() {
-        Book book2 = new Book("1234567892", "Polar Journey", "Iorek Polarson", Year.of(1993), 12.90, "Polar");
+        Book book2 = new Book("12345678SS91", "Northern Lights", "Lyra Silvertongue", Year.of(2011), 9.90, "Polar");
         Set<ConstraintViolation<Book>> violations = validator.validate(book2);
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage())
