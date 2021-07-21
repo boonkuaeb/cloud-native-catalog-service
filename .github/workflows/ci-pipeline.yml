@@ -38,6 +38,6 @@ jobs:
       - name: Containerize
         run: |
           chmod +x mvnw
-          ./mvnw mvn clean install
+          ./mvnw clean install
       - name: Push to Docker Hub
         run: docker push john3kuae/cloud-native-catalog-service:0.0.1-SNAPSHOT
