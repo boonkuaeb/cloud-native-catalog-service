@@ -21,15 +21,15 @@ class BookValidationTests {
 
     @Test
     void whenAllFieldsCorrectThenValidationSucceeds() {
-        Book book = new Book("1234567890", "Title", "Author", Year.of(2000), 9.90);
-        Set<ConstraintViolation<Book>> violations = validator.validate(book);
+        Book book1 = new Book("1234567891", "Northern Lights", "Lyra Silvertongue", Year.of(2011), 9.90, "Polar");
+        Set<ConstraintViolation<Book>> violations = validator.validate(book1);
         assertThat(violations).isEmpty();
     }
 
     @Test
     void whenIsbnDefinedButIncorrectThenValidationFails() {
-        Book book = new Book("a234567890", "Title", "Author", Year.of(2000), 9.90);
-        Set<ConstraintViolation<Book>> violations = validator.validate(book);
+        Book book2 = new Book("1234567892", "Polar Journey", "Iorek Polarson", Year.of(1993), 12.90, "Polar");
+        Set<ConstraintViolation<Book>> violations = validator.validate(book2);
         assertThat(violations).hasSize(1);
         assertThat(violations.iterator().next().getMessage())
                 .isEqualTo("The ISBN format must follow the standards ISBN-10 or ISBN-13.");

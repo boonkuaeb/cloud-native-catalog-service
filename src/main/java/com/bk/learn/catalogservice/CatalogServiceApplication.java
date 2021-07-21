@@ -16,14 +16,14 @@ import static org.springframework.web.servlet.function.ServerResponse.ok;
 @EnableConfigurationProperties(PolarProperties.class)
 public class CatalogServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CatalogServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CatalogServiceApplication.class, args);
+    }
 
-	@Bean
-	RouterFunction<ServerResponse> routes(PolarProperties properties) {
-		return route(GET("/"), request ->
-				ok().body(properties.getGreeting()));
-        }
+    @Bean
+    RouterFunction<ServerResponse> routes(PolarProperties properties) {
+        return route(GET("/"), request ->
+                ok().body(properties.getGreeting()));
+    }
 
 }

@@ -1,12 +1,15 @@
 package com.bk.learn.catalogservice.domain;
 
-import java.util.Collection;
+
 import java.util.Optional;
 
-public interface BookRepository {
-        Collection<Book> findAll();
-        Optional<Book> findByIsbn(String isbn);
-        boolean existsByIsbn(String isbn);
-        Book save(Book book);
-        void deleteByIsbn(String isbn);
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+public interface BookRepository
+        extends CrudRepository<Book,Long> {
+    Optional<Book> findByIsbn(String isbn);
+    boolean existsByIsbn(String isbn);
+    @Transactional
+    void deleteByIsbn(String isbn);
 }

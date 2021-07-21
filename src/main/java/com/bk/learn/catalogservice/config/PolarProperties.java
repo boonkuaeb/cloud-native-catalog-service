@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class PolarProperties {
 
-        /**
-         * A message to welcome users.
-         */
-        private String greeting;
+    /**
+     * A message to welcome users.
+     */
+    private String greeting;
 }

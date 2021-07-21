@@ -18,7 +18,8 @@ class BookControllerIntegrationTests {
 
     @Test
     void whenPostRequestThenBookCreated() {
-        Book expectedBook = new Book("1231231231", "Title", "Author", Year.of(1991), 9.90);
+        Book expectedBook =     new Book("1234567892", "Polar Journey", "Iorek Polarson", Year.of(1993), 12.90, "Polar");
+
         ResponseEntity<Book> response = restTemplate.postForEntity("/books", expectedBook, Book.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody()).isNotNull();
