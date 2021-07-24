@@ -38,6 +38,6 @@ jobs:
       - name: Containerize
         run: |
           chmod +x mvnw
-          ./gradlew spring-boot:build-image -Dspring-boot.build-image.imageName=john3kuae/cloud-native-config-service:0.0.1-SNAPSHOT
+          ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=john3kuae/cloud-native-config-service:0.0.1-SNAPSHOT
       - name: Push to Docker Hub
         run: docker push john3kuae/cloud-native-config-service:0.0.1-SNAPSHOT
