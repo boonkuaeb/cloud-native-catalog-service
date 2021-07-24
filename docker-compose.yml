@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  postgres-catalog:
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    networks:
+      - cloud-native-network
+    image: "postgres:13"
+    container_name: "postgres-catalog"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=polardb_catalog
+
+  config-service:
+    networks:
+      - cloud-native-network
+    image: "john3kuae/cloud-native-config-service:0.0.1-SNAPSHOT"
+    container_name: "config-service"
+    ports:
+      - 8002:8002
+      - 8888:8888
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8002
+
+  catalog-service:
+    networks:
+      - cloud-native-network
+    image: "john3kuae/cloud-native-catalog-service:0.0.1-SNAPSHOT"
+    container_name: "catalog-service"
+    ports:
+      - 8001:8001
+      - 9001:9001
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8001 -Dspring.cloud.config.enable=false
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-catalog:5432/polardb_catalog
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  cloud-native-network:
+    driver: bridge

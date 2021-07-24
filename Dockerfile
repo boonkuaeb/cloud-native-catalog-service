@@ -1,16 +1,7 @@
-FROM adoptopenjdk:16-jre
-WORKDIR application
-ARG JAR_FILE=build/libs/*.jar
-COPY ${JAR_FILE} catalog-service.jar
-RUN java -Djarmode=layertools -jar catalog-service.jar extract
+FROM  adoptopenjdk/openjdk16:jre-16.0.1_9
 
-FROM adoptopenjdk:16-jre
-RUN adduser spring
-#RUN useradd -g spring spring
-USER spring
-WORKDIR application
-COPY --from=builder application/dependencies/ ./
-COPY --from=builder application/snapshot-dependencies/ ./
-COPY --from=builder application/resources/ ./
-COPY --from=builder application/application/ ./
-ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+ARG JAR_FILE=target/cloud-native-catalog-service-0.0.1-SNAPSHOT.jar
+
+COPY ${JAR_FILE} cloud-native-catalog-service-0.0.1-SNAPSHOT.jar
+
+ENTRYPOINT ["java", "-jar", "cloud-native-catalog-service-0.0.1-SNAPSHOT.jar"]
